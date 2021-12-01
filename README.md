@@ -29,6 +29,8 @@ Was used:
   * tetris.jsto - implement the logic of the game
 * CSS:
   * style.css - creates a game design.
+  
+### More information in "About_realization.pdf"
 
 
 
