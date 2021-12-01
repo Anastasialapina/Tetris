@@ -4,11 +4,12 @@ var xm  = 10;
 var ym = 15;
 var N = 30;
 
-var Time;
+var Time = 1000;
+let timerId;
 
-var matrix = new Array(10);
+var matrix = new Array(xm);
 for (let i = 0; i < matrix.length; i++) {
-    matrix[i] = new Array(15);
+    matrix[i] = new Array(ym);
 }
 var active_figure = [];
 var rgb_active_figure = [];
@@ -30,24 +31,14 @@ function getRandomIntInclusive(min, max) {
 }
 
 function game(){
+    DrawRecordTable();
     flag = true;
     level = 0;
     init();
-    for (let i = 0; i<xm; i++){
-        for (let j = 0; j<ym; j++){
-            matrix[i][j] = 0;
-        }
-    }
-
-    for (let i = 0; i<xm; i++){
-        for (let j = 0; j<4; j++){
-            matrix_figure[i][j] = 0;
-        }
-    }
-    console.log(matrix);
     canvas = document.getElementById('canvas_game');
     ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // ctx.clearRect(0, 0, canvas.width, canvas.height);
+    moving_figure();
     startGame();
 }
 
@@ -129,11 +120,11 @@ function new_figure(){
 function checkStr(){
     for(let n = 0; n<ym; n++) {
         if (canCleanStr(n)) {
-            if (Time>200){
+            if (Time>300){
                 Time = Time - 100;
             }
             else{
-                if(Time>50) {
+                if(Time>200){
                     Time = Time - 10;
                 }
             }
@@ -175,6 +166,19 @@ function  cleanStr(n){
 }
 
 function startGame(){
+    clearTimeout(timerId);
+    for (let i = 0; i<xm; i++){
+        for (let j = 0; j<ym; j++){
+            matrix[i][j] = 0;
+        }
+    }
+
+    for (let i = 0; i<xm; i++){
+        for (let j = 0; j<4; j++){
+            matrix_figure[i][j] = 0;
+        }
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     Time = 1000;
     new_figure();
     active_figure = next_figure.slice();
@@ -192,11 +196,11 @@ function startGame(){
         }
     }
     drawNet(ctx, xm, ym);
-    moving_figure();
+    // moving_figure();
     console.log(matrix);
     console.log("rgb = ", rgb_active_figure);
     flag = true;
-    let timerId = setTimeout(function tick() {
+    timerId = setTimeout(function tick() {
         liveFigure();
         timerId = setTimeout(tick, Time);
     }, 1000);
@@ -214,31 +218,36 @@ function liveFigure(){
                 console.log("Вы проиграли!");
                 alert("Вы проиграли!");
                 saveRecord(level);
-                let array = getRecords();
-                console.log(array);
-                const modalTable = document.getElementById("modal-table");
-                modalTable.style.display = "block";
-                const recordsTable = document.getElementById("records-table");
-                recordsTable.innerHTML = "<tr><td>Nickname</td><td>Level</td></tr>";
-                let resultsStr = "";
-                for (let el of array) {
-                    resultsStr += `<tr><td>${el.nickname}</td><td>${el.level}</td></tr>`;
-                }
-                recordsTable.innerHTML += resultsStr;
+                DrawRecordTable();
+                clearTimeout(timerId);
+                Time = 1000;
+                // let array = getRecords();
+                // console.log(array);
+                // const modalTable = document.getElementById("modal-table");
+                // modalTable.style.display = "block";
+                // const recordsTable = document.getElementById("records-table");
+                // recordsTable.innerHTML = "<tr><td>Nickname</td><td>Level</td></tr>";
+                // let resultsStr = "";
+                // for (let el of array) {
+                //     resultsStr += `<tr><td>${el.nickname}</td><td>${el.level}</td></tr>`;
+                // }
+                // recordsTable.innerHTML += resultsStr;
             }
-            active_figure = next_figure.slice();
-            rgb_active_figure = rgb_next_figure.slice();
-            changeMatrix();
-            next_figure.splice(0, next_figure.length);
-            rgb_next_figure.splice(0, rgb_next_figure.length);
-            new_figure();
-            drawNextFigure();
-            for (let i = 0; i < xm; i++) {
-                for (let j = 0; j < ym; j++) {
-                    square(matrix[i][j], i * N, j * N);
+            else {
+                active_figure = next_figure.slice();
+                rgb_active_figure = rgb_next_figure.slice();
+                changeMatrix();
+                next_figure.splice(0, next_figure.length);
+                rgb_next_figure.splice(0, rgb_next_figure.length);
+                new_figure();
+                drawNextFigure();
+                for (let i = 0; i < xm; i++) {
+                    for (let j = 0; j < ym; j++) {
+                        square(matrix[i][j], i * N, j * N);
+                    }
                 }
+                drawNet(ctx, xm, ym);
             }
-            drawNet(ctx, xm, ym);
         }
     }
 }
