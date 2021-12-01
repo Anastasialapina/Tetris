@@ -1,6 +1,6 @@
 # Tetris
 
-This priject is typical tetris implemented on JavaScript.
+This project is typical tetris made with JavaScript.
 
 ### Try to play now [https://lapinaanastasia.itch.io/tetris](https://lapinaanastasia.itch.io/tetris)
 
