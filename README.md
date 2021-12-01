@@ -8,16 +8,16 @@ This project is typical tetris made with JavaScript.
 
 The program was written using WebStorm so no additional installation is required. It can be run in any IDE that supports web development.
 
-## Game appearance
+## Game
 
 ## Start page - enter the game:
 ![alt text](https://i.ibb.co/mvpPKZ8/entry.png)
 
-## The game process:
+## Game process:
 ![alt text](https://i.ibb.co/frRgBhV/playing.png)
 
 
-## Realization
+## Implementation
 Was used:
 * HTML: 
   * index.html - for entry in game 
