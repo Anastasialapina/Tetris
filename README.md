@@ -10,7 +10,7 @@ The program was written using WebStorm so no additional installation is required
 
 ## Game appearance
 
-Start page - enter the game:
+## Start page - enter the game:
 ![alt text](https://i.ibb.co/mvpPKZ8/entry.png)
 
 ## The game process:
