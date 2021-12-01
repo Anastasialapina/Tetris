@@ -1,6 +1,6 @@
 # Tetris
 
-This priject is typical tetris realized on JavaScript.
+This priject is typical tetris implemented on JavaScript.
 
 ### Try to play now [https://lapinaanastasia.itch.io/tetris](https://lapinaanastasia.itch.io/tetris)
 
